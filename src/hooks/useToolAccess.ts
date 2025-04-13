@@ -12,7 +12,7 @@ export function useToolAccess() {
   const [canUseTools, setCanUseTools] = useState<boolean>(true);
   const [remainingUses, setRemainingUses] = useState<number | null>(null);
   const [isChecking, setIsChecking] = useState<boolean>(true);
-  const [isPro, setIsPro] = useState<boolean>(false); 
+  const [isPro, setIsPro] = useState<boolean>(true); 
   const router = useRouter();
 
   // Check if user can access tools
@@ -30,7 +30,7 @@ export function useToolAccess() {
             setCanUseTools(data.allowed);
             setRemainingUses(data.remaining);
             // Set isPro based on API response
-            setIsPro(data.isPro || false);
+            // setIsPro(data.isPro || false);
           } else {
             console.error('Failed to check tool access:', data.error);
             setCanUseTools(false);

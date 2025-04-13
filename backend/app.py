@@ -2,6 +2,19 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+import os
+
+# Load environment variables BEFORE importing routes
+load_dotenv()
+
+# Verify key was loaded
+api_key = os.environ.get('GOOGLE_API_KEY')
+if not api_key:
+    print("WARNING: GOOGLE_API_KEY not found in environment!")
+else:
+    print("GOOGLE_API_KEY loaded successfully")
+
+# Now import routes that use the API key
 from routes.RandomPassNo_route import rpn_bp
 from routes.CsvExcelTools_route import cet_bp
 from routes.ImageGen_route import ig_bp
@@ -16,7 +29,6 @@ from routes.SqlConverter_route import sql_bp
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-load_dotenv()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
